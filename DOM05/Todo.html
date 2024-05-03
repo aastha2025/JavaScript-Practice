@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO DO</title>
+    <style>
+        body{
+            font-family:Arial, Helvetica, sans-serif;
+        }
+        .container{
+            max-width:500px;
+            margin: 10% auto;
+            padding: 0% auto ;
+        }
+        input[type="text"]{
+            width:50% ;
+            padding: 10px 20px;
+            margin-bottom:10px ;
+
+        }
+        button{
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #5e66da;
+            border: none;
+            cursor: pointer;
+            border-radius: 5%;
+            margin:1%;
+        
+        }
+        button:hover{
+            background-color: #a8a8e5;
+        }
+
+        ul{
+            list-style-type: none;
+            padding: 0;
+        }
+        li{
+            margin-bottom: 5px;
+
+        }
+    </style>
+</head>
+<body style="background-color: #212121; color: #fff;">
+<div class="container">
+    <h1>TO DO LIST</h1>
+    <h2>Add your task into list</h2>
+    <input type="text" id="taskinput" placeholder="Enter your task" >
+    <button onclick = "addtask()">Add task</button>
+    <ul id="taskList"></ul>
+
+</div>
+    
+</body>
+<script>
+    function addtask(){
+  const taskInput = document.getElementById("taskInput");
+  const taskList = document.getElementById("taskList");
+
+  if (taskInput.value.trim() !== "") {
+    var taskItem = document.createElement("li");
+    taskItem.innerText = taskInput.value;
+    taskList.appendChild(taskItem);
+    taskInput.value = "";
+  } else {
+    alert("Please enter a task!");
+  }
+
+   }
+</script>
+</html>
