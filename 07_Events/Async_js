@@ -1,0 +1,106 @@
+
+/*
+ 
+1.    JavaScript (default js )  ---> Synchromous 
+                                     :->  koi execution hoga to one by one hoga in js
+                                |--->  Single Threaded 
+                                     :-> js engine is single threaded can cause problem like execution choke .. isliye vo hmesha runtime enviornment mai milega ya browser Etc
+
+
+2.    Execution Context           
+       |     ----> execution one line of code at a time 
+       |
+       |--> console.log->1
+       |
+       |--> console.log -> 2              
+       |                                   
+       |                   
+       |
+       |
+       |  (have call stack  and  memory heap)
+      \|/ 
+      (this is single thread , perform execution one by one )
+
+      // ***   each operation waits for the last one to complete before executing the next one. ***** //
+
+
+
+
+3.    Blocking Code VS Non Blocking Code
+
+          Blocking Code             |   Non Blocking Code
+                                    |
+      * Block the flow of program   | * Donot block the execution
+                                    |
+      * Read file sync.             | * Read file Async
+                                    |
+
+
+
+
+4.   (a)   js engine : has memory heap and call stack.
+                    : call stack mai ek global declaration hoti h or baki function ek ek krke store hote h . ek ek krke function execute hote h or unload hote rhte h stcak se
+                    : memory heap mai bs memory execution hota h .
+
+    (b)     web API 
+               like DOM API 
+                    Set timeout (asynchronous api)
+                    Set interval (asynchronous api)
+      
+            web api has registercallback : yha sub request register hoti h or arrange ki jati h task queue mai ..
+            ecent loop : check whether task queue is full or not and call stack is empty or not .
+   *   WORKING 
+
+       function stack se call krega web api ko like (call set timeout ) to vo time set krdengi execution ka ki 2 mint baad ye execute kra h 3 mint baad ye and so oon ... sub ko register krdete h call back function mai.
+       ek hmare paas task ques hoti h sub call function usmai register hote rhte h LIFO ke acc execute hote rhte h .. 
+       queue mai jynge queue subko call stack mai dalta rhga or call krke execution hota rhga .
+       jo already queue mai h vo run hote rhnge or task queue vale asynchronous form mai execute honge jb unka time ayga.
+       like o time per 2 execute krna h to vo phle call hoga register hoga fir jakr execute or is time period mai jo baki function the execute hojynge jo stack mai the present. 
+       1 , (0,2 ) , 3 to phle 1 hoga fir o time per 2 krna h vo call krega set time=eout ko  task queue mai jyga or fir execute hoga but is beech 3 already execute hojyga.
+       
+
+    ** new api like fetch()  added in js also work as task queue.
+     
+    
+        ---- >  fetch() api  similar work as task queue <-----------
+
+
+     fetch api  ki hight priorty hoti h .
+      * have promises functions 
+      *  work on task like execute ho to bta dena , nhi ho to bhi bta dena .
+
+
+     setTimeout , setInterval function h jo browser ke through milte h , core js ke part nhi h . 
+    ClearTimeout , ClearInterval part of this .
+
+    time out ek baar time lekr ek baar kaam krta h '
+    time interval ek break point leta h or us kaam ko us time ke gap mai krta ho rhta h .. 
+
+
+
+fetch  is divided in 2 part 
+1. web browser/node
+    |--> get network request 
+           |-->  request gyi to jyga  resolve mai.
+           |--> request nhi gyi to jyga reject mai.
+   
+
+2. variable , memory maid ata resorve krne ke liye.
+ in  data:
+    |---> onfulfield[] // resolve in promises
+    |---> on Rejection[] // reject in promises
+    
+directly data , value push krna allowed nhi h in this .. they are private  field out of our range .
+
+
+**NOTE** : error 404 , etc ayi to bhi onfulfield mai hi count hotah bcz .. request gyi tbhi to error aya h .
+
+response = fetch ('something cam pass additional things as well)
+
+1 web browser se network rewuest gyi.
+2. ya jyga onfulfill mai ya rejection mai.. dono mai function pass honge [ in this] yha se data jyga store hoga data mai.
+3. ye data ab jyga response mai or resopnse dega global memory ko data.
+then full execution of fetch completed.
+
+*/
+
